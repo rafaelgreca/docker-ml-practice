@@ -13,5 +13,5 @@ docker build -t docker_practice .
 
 Run the image:
 ```bash
-docker run docker_practice
+docker run --rm docker_practice
 ```

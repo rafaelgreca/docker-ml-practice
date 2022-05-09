@@ -1,4 +1,12 @@
-FROM continuumio/anaconda3
+FROM python:3.8.13-buster
+
+ENV data_path='/usr/docker-practice'
+ENV epochs=100
+ENV batch_size=200
+ENV embedding_size=300
+ENV lstm_units=64
+ENV dropout_rate=0.25
+ENV max_len=30
 
 COPY . /usr/docker-practice
 
@@ -6,8 +14,6 @@ EXPOSE 5000
 
 WORKDIR /usr/docker-practice
 
-RUN conda env create -f environment.yaml
+RUN pip install -r requirements.txt
 
-SHELL ["conda", "run", "--no-capture-output", "-n", "myenv", "/bin/bash", "-c"]
-
-CMD python main.py --data_path '/usr/docker-practice' --epochs 100 --batch_size 200 --embedding_size 300 --lstm_units 64 --dropout_rate 0.25 --max_len 30
+CMD python main.py --data_path $data_path --epochs $epochs --batch_size $batch_size --embedding_size $embedding_size --lstm_units $lstm_units --dropout_rate $dropout_rate --max_len $max_len
